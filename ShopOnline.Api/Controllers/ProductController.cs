@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopOnline.Api.Repositories.Contracts;
+using ShopOnline.Models.Dtos;
 
 namespace ShopOnline.Api.Controllers
 {
@@ -13,6 +14,12 @@ namespace ShopOnline.Api.Controllers
         public ProductController(IProductRepository productRepository)
         {
 
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetItems()
+        {
+            
         }
     }
 }
