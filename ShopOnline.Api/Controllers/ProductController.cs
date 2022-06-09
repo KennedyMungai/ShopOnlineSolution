@@ -14,7 +14,7 @@ namespace ShopOnline.Api.Controllers
 
         public ProductController(IProductRepository productRepository)
         {
-
+            this.productRepository = productRepository;
         }
 
         [HttpGet]
