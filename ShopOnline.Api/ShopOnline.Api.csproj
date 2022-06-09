@@ -19,8 +19,4 @@
     <ProjectReference Include="..\ShopOnline.Web\ShopOnline.Web.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>
