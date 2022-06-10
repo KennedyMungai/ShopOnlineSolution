@@ -36,7 +36,7 @@ namespace ShopOnline.Web.Services
             }
             catch (Exception)
             {
-
+                //Log Exception
                 throw;
             }
         }
@@ -45,12 +45,26 @@ namespace ShopOnline.Web.Services
         {
             try
             {
-                var products = await this.httpClient.GetFromJsonAsync<IEnumerable<ProductDto>>("api/Product");
-                return products;
+                var response = await this.httpClient.GetAsync("api/Product");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+                        return Enumerable.Empty<ProductDto>();
+                    }
+
+                    return await response.Content.ReadFromJsonAsync<IEnumerable<ProductDto>>();
+                }
+                else
+                {
+                    var message = await response.Content.ReadAsStringAsync();
+                    throw new Exception(message);
+                }
             }
             catch (Exception)
             {
-
+                //Log exception
                 throw;
             }
         }
