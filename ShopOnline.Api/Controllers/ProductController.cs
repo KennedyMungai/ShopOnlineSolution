@@ -54,8 +54,9 @@ namespace ShopOnline.Api.Controllers
                 }
                 else
                 {
-                    
-                    return Ok(productDtos);
+                    var productCategory = await this.productRepository.GetCategory(product.CategoryId);
+                    var productDto = product.ConvertToDto(productCategory);
+                    return Ok(productDto);
                 }
             }
             catch (Exception)
