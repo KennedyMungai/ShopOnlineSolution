@@ -67,16 +67,16 @@ namespace ShopOnline.Api.Repositories
         public async Task<IEnumerable<CartItem>> GetItems(int userId)
         {
             return await(from cart in this.shopOnlineDbContext.Carts
-                         join cartItem in this.shopOnlineDbContext.CartItems
-                         on cart.Id equals cartItem.CartId
-                         where cart.UserId == userId
-                         select new CartItem
-                         {
-                             Id = cartItem.Id,
-                             ProductId = cartItem.ProductId,
-                             Qty = cartItem.Qty,
-                             CartId = cartItem.CartId
-                         }).ToListAsync();
+                            join cartItem in this.shopOnlineDbContext.CartItems
+                            on cart.Id equals cartItem.CartId
+                            where cart.UserId == userId
+                            select new CartItem
+                            {
+                                Id = cartItem.Id,
+                                ProductId = cartItem.ProductId,
+                                Qty = cartItem.Qty,
+                                CartId = cartItem.CartId
+                            }).ToListAsync();
         }
 
         public Task<CartItem> UpdateQty(int id, CartItemQtyUpdateDto cartItemUpdateDto)
