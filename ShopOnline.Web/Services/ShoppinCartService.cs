@@ -1,5 +1,6 @@
 ﻿using ShopOnline.Models.Dtos;
 using ShopOnline.Web.Services.Contracts;
+using System.Collections.Generic;
 using System.Net.Http.Json;
 
 namespace ShopOnline.Web.Services
@@ -41,7 +42,7 @@ namespace ShopOnline.Web.Services
             }
         }
 
-        public async Task<IEnumerable<CartItemDto>> GetItems(int userId)
+        public async Task<List<CartItemDto>> GetItems(int userId)
         {
             try
             {
@@ -51,16 +52,36 @@ namespace ShopOnline.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return Enumerable.Empty<CartItemDto>();
+                        return Enumerable.Empty<CartItemDto>().ToList();
                     }
 
-                    return await response.Content.ReadFromJsonAsync<IEnumerable<CartItemDto>>();
+                    return await response.Content.ReadFromJsonAsync<List<CartItemDto>>();
                 }
                 else
                 {
                     var message = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
                 }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<CartItemDto> DeleteItem(int id)
+        {
+            try
+            {
+                var response = await httpClient.DeleteAsync($"api/ShoppingCart/{id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<CartItemDto>();
+                }
+
+                return default(CartItemDto);
             }
             catch (Exception)
             {
