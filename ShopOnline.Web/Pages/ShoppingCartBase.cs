@@ -26,7 +26,7 @@ namespace ShopOnline.Web.Pages
             try
             {
                 ShoppingCartItems = await ShoppingCartService.GetItems(HardCoded.UserId);
-                CalculateCartSummaryTotals();
+                CartChanged();
             }
             catch (Exception ex)
             {
@@ -38,7 +38,7 @@ namespace ShopOnline.Web.Pages
         {
             var cartItemDto = await ShoppingCartService.DeleteItem(id);
             RemoveCartItem(id);
-            CalculateCartSummaryTotals();
+            CartChanged();
         }
 
         private CartItemDto GetCartItem(int id)
@@ -68,7 +68,7 @@ namespace ShopOnline.Web.Pages
                     var returnedUpdateItemDto = await this.ShoppingCartService.UpdateItem(updateItemDto);
 
                     UpdateItemTotalPrice(returnedUpdateItemDto);
-                    CalculateCartSummaryTotals();
+                    CartChanged();
                     await MakeUpdateQtyButtonVisible(id, false);
                 }
                 else
@@ -123,6 +123,12 @@ namespace ShopOnline.Web.Pages
         private async Task MakeUpdateQtyButtonVisible(int id, bool visible)
         {
             await Js.InvokeVoidAsync("MakeUpdateQtyButtonVisible", id, visible);
+        }
+
+        private void CartChanged()
+        {
+            CalculateCartSummaryTotals();
+            ShoppingCartService.RaiseEventOnShoppingCartChanged(TotalQuantity);
         }
     }
 }
