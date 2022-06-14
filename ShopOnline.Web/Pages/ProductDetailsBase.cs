@@ -9,11 +9,11 @@ namespace ShopOnline.Web.Pages
         [Parameter]
         public int Id { get; set; }
         [Inject]
-        public IProductService? ProductService { get; set; }
+        public IProductService ProductService { get; set; }
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-        public IShoppingCartService? ShoppingCartService { get; set; }
-        public ProductDto? Product { get; set; }
+        public IShoppingCartService ShoppingCartService { get; set; }
+        public ProductDto Product { get; set; }
         public string? ErrorMessage { get; set; }
 
         protected override async Task OnInitializedAsync()
