@@ -8,7 +8,7 @@ namespace ShopOnline.Web.Pages
     public class CheckoutBase : ComponentBase
     {
         [Inject]
-        public IJSRuntime? Js { get; set; }
+        public IJSRuntime Js { get; set; }
 
         protected IEnumerable<CartItemDto>? ShoppingCartItems { get; set; }
         protected int TotalQty { get; set; }
