@@ -8,9 +8,9 @@ namespace ShopOnline.Web.Pages
     public class ShoppingCartBase : ComponentBase
     {
         [Inject]
-        public IShoppingCartService? ShoppingCartService { get; set; }
+        public IShoppingCartService ShoppingCartService { get; set; }
 
-        public List<CartItemDto>? ShoppingCartItems { get; set; }
+        public List<CartItemDto> ShoppingCartItems { get; set; }
 
         public string? ErrorMessage { get; set; }
 
